@@ -1,18 +1,40 @@
 #include <Arduino.h>
+#include <Servo.h>
 
-// put function declarations here:
-int myFunction(int, int);
+static const int servoPin = 25;
+int cont = 0;
+Servo servo1;
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+    Serial.begin(9600);
+    servo1.attach(servoPin);
+    
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+    for(int posDegrees = 130; posDegrees <= 170; posDegrees++) {
+        servo1.write(posDegrees);
+        Serial.println(posDegrees);
+        delay(10);
+    }
+    while (cont <11){
+        for(int posDegrees = 160; posDegrees >= 130; posDegrees--) {
+           servo1.write(posDegrees);
+           Serial.println(posDegrees);
+           delay(5);
+        }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+        for(int posDegrees = 160; posDegrees <= 170; posDegrees++) {
+            servo1.write(posDegrees);
+            Serial.println(posDegrees);
+           delay(5);
+         }
+         cont ++;
+    }
+    for(int posDegrees = 170; posDegrees >= 130; posDegrees--) {
+        servo1.write(posDegrees);
+        Serial.println(posDegrees);
+        delay(10);
+    }
+    cont = 0;
 }
